@@ -1,1 +1,11 @@
-import math
+# only up to 48
+from math import pi
+
+digits = int(input('how many digits would you like? '))
+if digits > 48:
+    print ("can't do")
+    
+else:
+    print("pi is {pi:0.{precision}f}".format(pi=pi,precision = digits))
+
+
