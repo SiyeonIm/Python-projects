@@ -1,11 +1,34 @@
-# only up to 48
-from math import pi
+#using chudnovsky
+#https://www.craig-wood.com/nick/articles/pi-chudnovsky/
+#https://en.wikipedia.org/wiki/Chudnovsky_algorithm
+
+# the maxK and prec can be changed
+
+from decimal import *
+
+def PI(maxK: int = 70, prec: int = 1008):
+    getcontext().prec = prec
+
+    C = 426880 * Decimal(10005).sqrt()
+    K, M, X, L, A = 6, 1, 1, 13591409, 13591409
+
+    for k in range(1, maxK+1):
+            K += 12
+            M *= Decimal(K**3 - 16*K) / k**3 
+            X *= -262537412640768000
+            L += 545140134
+            A += Dec(M * L) / X
+    pi = 426880 * Dec(10005).sqrt() / A
+    print("PI(maxK={} iterations, getcontext().prec={}, digits) =\n{}".format(maxK, prec, pi))
+    return pi
+
+pi = PI()
+
+
 
 digits = int(input('how many digits would you like? '))
-if digits > 48:
-    print ("can't do")
+if digits > 1008:
+    print ("won't be as accurate tho")
     
 else:
-    print("pi is {pi:0.{precision}f}".format(pi=pi,precision = digits))
-
-
+    print("{pi:0.{precision}f}".format(pi=pi,precision = digits))
